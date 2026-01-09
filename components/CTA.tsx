@@ -1,0 +1,47 @@
+export default function CTA() {
+  return (
+    <section className="py-16">
+      <div className="max-w-7xl mx-auto px-6">
+
+        <div
+          className="relative rounded-2xl overflow-hidden"
+          style={{
+            backgroundImage: "url('/assets/images/discover.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-linear-to-r from-black/70 to-black/10" />
+
+          {/* Content */}
+          <div className="relative z-10 p-10 md:p-14 flex items-center">
+            <div className="text-white max-w-lg">
+              <h2 className="text-3xl md:text-4xl font-semibold">
+                Discover More Schemes
+              </h2>
+
+              <p className="mt-3">
+                Browse our full range of schemes designed to support your
+                reintegration and empowerment journey.
+              </p>
+
+              {/* Buttons */}
+              <div className="mt-6 flex flex-wrap gap-4">
+                <button className="bg-white text-black px-6 py-3 rounded-full text-sm font-medium hover:bg-gray-100 transition">
+                  Explore All Schemes
+                </button>
+
+                <button className="border border-white text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-white hover:text-black transition">
+                  Contact Us
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  );
+}
