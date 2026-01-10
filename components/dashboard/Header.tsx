@@ -1,78 +1,170 @@
 "use client";
 
-import { Search, Bell, ShoppingCart, Sun, Moon } from "lucide-react";
+import {Menu,Search,Bell,ShoppingCart,Sun,Moon,X,} from "lucide-react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { useLanguage } from "@/context/LanguageContext";
+import { useState } from "react";
 
-export default function Header() {
+export default function Header({
+  onMenuClick,
+}: {
+  onMenuClick: () => void;
+}) {
   const { setTheme, resolvedTheme } = useTheme();
   const { language, toggleLanguage } = useLanguage();
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+
+  const isDark = resolvedTheme === "dark";
 
   return (
-    <header className="w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 py-3 flex items-center justify-between">
-
-      
-      <div className="relative ">
-        <input
-          type="text"
-          placeholder='Search (ctrl + "/" to focus)'
-          className="w-full bg-gray-100 dark:bg-gray-800 text-sm px-4 py-2 rounded-md pr-10
-                     text-gray-800 dark:text-gray-100 placeholder-gray-500
-                     focus:outline-none focus:ring-1 focus:ring-green-600"
-        />
-        <Search
-          size={18}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
-        />
-      </div>
-
-      
-      <div className="flex items-center gap-4">
-
-        <button className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">
-          <ShoppingCart size={18} className="text-gray-600 dark:text-gray-300" />
-        </button>
-
-        <div className="relative">
-          <button className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">
-            <Bell size={18} className="text-gray-600 dark:text-gray-300" />
+    <header
+      className={`w-full px-4 md:px-6 py-3 border-b
+        ${isDark ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"}
+      `}
+    >
+      {/* TOP BAR */}
+      <div className="flex items-center justify-between">
+        {/* LEFT SECTION */}
+        <div className="flex items-center gap-2">
+          {/* HAMBURGER — MOBILE ONLY */}
+          <button
+            onClick={onMenuClick}
+            className="md:hidden p-2 rounded-md hover:bg-green-200 transition"
+          >
+            <Menu size={20} className="text-green-700" />
           </button>
-          <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+
+          {/* DESKTOP SEARCH */}
+          <div className="relative w-80 hidden md:block">
+            <input
+              type="text"
+              placeholder='Search (ctrl + "/" to focus)'
+              className={`w-full px-4 py-2 pr-10 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-green-600
+                ${
+                  isDark
+                    ? "bg-green-50 text-green-100 placeholder-gray-400"
+                    : "bg-green-50 text-gray-800 placeholder-gray-500"
+                }
+              `}
+            />
+            <Search
+              size={18}
+              className={`absolute right-3 top-1/2 -translate-y-1/2
+                ${isDark ? "text-green-800" : "text-green-700"}
+              `}
+            />
+          </div>
         </div>
 
-        
-        <button
-          onClick={toggleLanguage}
-          className="text-sm font-medium text-gray-800 dark:text-gray-200 hover:text-green-700"
-        >
-          {language === "en" ? "EN" : "മലയാളം"}
-        </button>
+        {/* RIGHT ACTIONS */}
+        <div className="flex items-center gap-2 md:gap-4">
+          {/* MOBILE SEARCH ICON */}
+          <button
+            onClick={() => setMobileSearchOpen(true)}
+            className="md:hidden p-2 rounded-md hover:bg-green-200 transition"
+          >
+            <Search size={18} className="text-green-700" />
+          </button>
 
-        
-        <button
-            onClick={() =>
-                setTheme(resolvedTheme === "dark" ? "light" : "dark")
-            }
-            className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
-            {resolvedTheme === "dark" ? (
-                <Sun size={18} className="text-gray-600 dark:text-gray-300" />
+          <IconButton isDark={isDark}>
+            <ShoppingCart size={18} />
+          </IconButton>
+
+          <div className="relative">
+            <IconButton isDark={isDark}>
+              <Bell size={18} />
+            </IconButton>
+            <span className="absolute top-1 right-1 w-2 h-2 bg-red-600 rounded-full" />
+          </div>
+
+          <button
+            onClick={toggleLanguage}
+            className={`hidden sm:block p-2 font-medium rounded-md transition
+              ${
+                isDark
+                  ? "text-green-600 hover:bg-green-100"
+                  : "text-green-700 hover:bg-green-200"
+              }
+            `}
+          >
+            {language === "en" ? "EN" : "മ"}
+          </button>
+
+          <button
+            onClick={() => setTheme(isDark ? "light" : "dark")}
+            className={`p-2 rounded-md transition
+              ${isDark ? "hover:bg-green-100" : "hover:bg-green-200"}
+            `}
+          >
+            {isDark ? (
+              <Sun size={18} className="text-yellow-400" />
             ) : (
-                <Moon size={18} className="text-gray-600" />
+              <Moon size={18} className="text-green-700" />
             )}
-        </button>
+          </button>
 
-
-        <Image
-          src="/assets/images/profile.png"
-          alt="Profile"
-          width={32}
-          height={32}
-          className="rounded-full cursor-pointer"
-        />
+          <button className="rounded-full hover:ring-2 hover:ring-green-200 transition">
+            <Image
+              src="/assets/images/profile.png"
+              alt="Profile"
+              width={32}
+              height={32}
+              className={`rounded-full ring-1
+                ${isDark ? "ring-green-100" : "ring-gray-300"}
+              `}
+            />
+          </button>
+        </div>
       </div>
 
+      {/* ✅ MOBILE SEARCH BAR */}
+      {mobileSearchOpen && (
+        <div className="mt-3 md:hidden">
+          <div className="relative">
+            <input
+              autoFocus
+              type="text"
+              placeholder="Search..."
+              className={`w-full px-4 py-2 pr-10 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-green-600
+                ${
+                  isDark
+                    ? "bg-green-50 text-green-100 placeholder-gray-400"
+                    : "bg-green-50 text-gray-800 placeholder-gray-500"
+                }
+              `}
+            />
+            <button
+              onClick={() => setMobileSearchOpen(false)}
+              className="absolute right-3 top-1/2 -translate-y-1/2"
+            >
+              <X size={18} className="text-gray-500" />
+            </button>
+          </div>
+        </div>
+      )}
     </header>
+  );
+}
+
+function IconButton({
+  children,
+  isDark,
+}: {
+  children: React.ReactNode;
+  isDark: boolean;
+}) {
+  return (
+    <button
+      className={`p-2 rounded-md transition
+        ${
+          isDark
+            ? "text-green-600 hover:bg-green-100"
+            : "text-green-700 hover:bg-green-200"
+        }
+      `}
+    >
+      {children}
+    </button>
   );
 }

@@ -1,139 +1,163 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { useTheme } from "next-themes";
 import Image from "next/image";
-import {
-  LayoutDashboard,
-  FileText,
-  Folder,
-  User,
-  HelpCircle,
-  LogOut,
-} from "lucide-react";
+import {LayoutDashboard,FileText,Folder,User,HelpCircle,LogOut,X,} from "lucide-react";
 
-export default function Sidebar() {
-      const pathname = usePathname();
+const navItems = [
+  {
+    label: "Dashboard",
+    href: "/dashboard/returnee",
+    icon: LayoutDashboard,
+  },
+  {
+    label: "Recommended Schemes",
+    href: "/dashboard/returnee/recommended_schemes",
+    icon: Folder,
+  },
+  {
+    label: "Applications",
+    href: "/dashboard/returnee/applications",
+    icon: FileText,
+  },
+  {
+    label: "Documents",
+    href: "/dashboard/returnee/documents",
+    icon: FileText,
+  },
+  {
+    label: "Profile",
+    href: "/dashboard/returnee/profile",
+    icon: User,
+  },
+  {
+    label: "Support",
+    href: "/dashboard/returnee/support",
+    icon: HelpCircle,
+  },
+];
+
+export default function Sidebar({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
+  const pathname = usePathname();
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
+
   return (
-    <aside className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col justify-between">
+    <>
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div
+          onClick={onClose}
+          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+        />
+      )}
 
-      <div>
-        {/* Logo */}
-        <div className="px-6 py-5 border-b border-gray-200 dark:border-gray-700 flex flex-col items-center text-center gap-2">
-          <Image
-            src="/assets/images/govt.jfif"
-            alt="Government Logo"
-            width={50}
-            height={50}
-          />
-          <div className="text-sm font-semibold leading-snug text-gray-800 dark:text-gray-100">
-            Kerala Pravasi Reintegration & <br />
-            Empowerment Platform
+      <aside
+        className={`fixed md:static z-50 md:z-auto top-0 left-0 h-full w-64
+        flex flex-col justify-between border-r
+        transform transition-transform duration-300
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        md:translate-x-0
+        ${
+          isDark
+            ? "bg-gray-900 border-gray-700"
+            : "bg-white border-gray-200"
+        }`}
+      >
+        {/* Top */}
+        <div>
+          <div
+            className={`px-6 py-5 flex flex-col items-center text-center gap-2 border-b ${
+              isDark ? "border-gray-700" : "border-gray-200"
+            }`}
+          >
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 md:hidden"
+            >
+              <X
+                size={18}
+                className={isDark ? "text-gray-300" : "text-gray-600"}
+              />
+            </button>
+
+            <Image
+              src="/assets/images/govt.jfif"
+              alt="Government Logo"
+              width={50}
+              height={50}
+            />
+
+            <div
+              className={`text-sm font-semibold leading-snug ${
+                isDark ? "text-gray-100" : "text-gray-800"
+              }`}
+            >
+              Kerala Pravasi Reintegration & <br />
+              Empowerment Platform
+            </div>
           </div>
+
+          {/* Nav */}
+          <nav className="mt-4 px-4">
+            <ul className="space-y-1">
+              {navItems.map(({ label, href, icon: Icon }) => {
+                const isActive = pathname === href;
+
+                return (
+                  <Link key={href} href={href} onClick={onClose}>
+                    <li
+                      className={`flex items-center gap-3 px-4 py-2 rounded-md
+                      cursor-pointer transition
+                      ${
+                        isActive
+                          ? isDark
+                            ? "bg-green-700 text-green-50 font-semibold"
+                            : "bg-green-100 text-green-700 font-semibold"
+                          : isDark
+                          ? "text-green-100 hover:bg-green-700"
+                          : "text-gray-700 hover:bg-green-50"
+                      }`}
+                    >
+                      <Icon size={18} />
+                      {label}
+                    </li>
+                  </Link>
+                );
+              })}
+            </ul>
+          </nav>
         </div>
 
-        {/* Menu */}
-        <nav className="mt-4 px-4">
-          <ul className="space-y-1">
-
-            <Link href="/dashboard/returnee">
-              <li
-                className={`flex items-center gap-3 px-4 py-2 rounded-md cursor-pointer
-                  ${
-                    pathname === "/dashboard/returnee"
-                      ? "bg-green-50 text-green-700 font-semibold"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`}
-              >
-                <LayoutDashboard size={18} />
-                Dashboard
-              </li>
-            </Link>
-
-{/* _ aan not - sredhikanam */}
-            <Link href="/dashboard/returnee/recommended_schemes">
-              <li
-                className={`flex items-center gap-3 px-4 py-2 rounded-md cursor-pointer
-                  ${
-                    pathname === "/dashboard/returnee/recommended_schemes"
-                      ? "bg-green-50 text-green-700 font-semibold"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`}
-              >
-                <Folder size={18} />
-                Recommended Schemes
-              </li>
-            </Link>
-
-
-            <Link href="/dashboard/returnee/applications">
-              <li
-                className={`flex items-center gap-3 px-4 py-2 rounded-md cursor-pointer
-                  ${
-                    pathname === "/dashboard/returnee/recommended-schemes"
-                      ? "bg-green-50 text-green-700 font-semibold"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`}
-              >
-                <FileText size={18} />
-                Applications
-              </li>
-            </Link>
-
-            <Link href="/dashboard/returnee/documents">
-              <li
-                className={`flex items-center gap-3 px-4 py-2 rounded-md cursor-pointer
-                  ${
-                    pathname === "/dashboard/returnee/recommended-schemes"
-                      ? "bg-green-50 text-green-700 font-semibold"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`}
-              >
-                <FileText size={18} />
-                Documents
-              </li>
-            </Link>
-            
-            <Link href="/dashboard/returnee/profile">
-              <li
-                className={`flex items-center gap-3 px-4 py-2 rounded-md cursor-pointer
-                  ${
-                    pathname === "/dashboard/returnee/recommended-schemes"
-                      ? "bg-green-50 text-green-700 font-semibold"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`}
-              >
-                <User size={18} />
-                Profile
-              </li>
-            </Link>
-
-            <Link href="/dashboard/returnee/support">
-              <li
-                className={`flex items-center gap-3 px-4 py-2 rounded-md cursor-pointer
-                  ${
-                    pathname === "/dashboard/returnee/support"
-                      ? "bg-green-50 text-green-700 font-semibold"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`}
-              >
-                <HelpCircle size={18} />
-                Support
-              </li>
-            </Link>
-
-
-          </ul>
-        </nav>
-      </div>
-
-      <div className="px-4 py-4 border-t border-gray-200 dark:border-gray-700">
-        <button className="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 font-medium rounded-md w-full">
-          <LogOut size={18} />
-          Logout
-        </button>
-      </div>
-
-    </aside>
+        {/* Bottom */}
+        <div
+          className={`px-4 py-4 border-t ${
+            isDark ? "border-gray-700" : "border-gray-200"
+          }`}
+        >
+          <button
+            className={`flex items-center gap-3 px-4 py-2 w-full rounded-md font-medium transition ${
+              isDark
+                ? "text-red-400 hover:bg-red-900/30"
+                : "text-red-600 hover:bg-red-50"
+            }`}
+          >
+            <LogOut size={18} />
+            Logout
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }
+
+
+
