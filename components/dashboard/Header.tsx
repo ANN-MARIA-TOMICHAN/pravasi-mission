@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 import { useLanguage } from "@/context/LanguageContext";
 import { useState } from "react";
-
+import ThemeToggle from "../theme-toggle";
 export default function Header({
   onMenuClick,
 }: {
@@ -60,6 +60,7 @@ export default function Header({
         {/* RIGHT ACTIONS */}
         <div className="flex items-center gap-2 md:gap-4">
           {/* MOBILE SEARCH ICON */}
+          <ThemeToggle/> 
           <button
             onClick={() => setMobileSearchOpen(true)}
             className="md:hidden p-2 rounded-md hover:bg-green-200 transition"

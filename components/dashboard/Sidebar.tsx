@@ -110,7 +110,10 @@ export default function Sidebar({
           <nav className="mt-4 px-4">
             <ul className="space-y-1">
               {navItems.map(({ label, href, icon: Icon }) => {
-                const isActive = pathname === href;
+                const isActive =
+                  href === "/dashboard/returnee"
+                    ? pathname === href
+                    : pathname === href || pathname.startsWith(href + "/");
 
                 return (
                   <Link key={href} href={href} onClick={onClose}>

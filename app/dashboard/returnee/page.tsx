@@ -3,6 +3,7 @@
 import { useLanguage } from "@/context/LanguageContext";
 import { FileText, Briefcase, Layers, CheckCircle } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 export default function ReturneeDashboardPage() {
   const { language } = useLanguage();
 
@@ -150,9 +151,12 @@ export default function ReturneeDashboardPage() {
                 <span className="text-sm text-gray-500">
                   Up to 30 Lakhs subsidy
                 </span>
-                <button className="bg-green-800 hover:bg-green-800 text-white px-4 py-1.5 rounded-md text-sm">
-                  Apply Now
-                </button>
+                <Link href="/dashboard/returnee/recommended_schemes/apply">
+                  <button className="bg-green-800 hover:bg-green-900 text-white px-4 py-1.5 rounded-md text-sm transition">
+                    Apply Now
+                  </button>
+                </Link>
+
               </div>
             </div>
 
@@ -167,9 +171,12 @@ export default function ReturneeDashboardPage() {
                 <span className="text-sm text-gray-500">
                   Up to 30 Lakhs subsidy
                 </span>
-                <button className="bg-green-800 hover:bg-green-800 text-white px-4 py-1.5 rounded-md text-sm">
-                  Apply Now
-                </button>
+                <Link href="/dashboard/returnee/recommended_schemes/apply">
+                  <button className="bg-green-800 hover:bg-green-900 text-white px-4 py-1.5 rounded-md text-sm transition">
+                    Apply Now
+                  </button>
+                </Link>
+
               </div>
             </div>
 

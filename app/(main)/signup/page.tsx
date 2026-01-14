@@ -54,7 +54,7 @@ export default function SignupPage() {
     onClick={() => setRole("returnee")}
     className={`rounded-lg p-4 text-center border
       ${role === "returnee"
-        ? "bg-green-700"
+        ? "bg-green-700 text-amber-50"
         : "border-gray-200"
       }`}
   >
@@ -68,7 +68,7 @@ export default function SignupPage() {
     onClick={() => setRole("association")}
     className={`rounded-lg p-4 text-center border
       ${role === "association"
-        ? " bg-green-700"
+        ? " bg-green-700 text-amber-50"
         : "border-gray-200"
       }`}
   >
@@ -82,7 +82,7 @@ export default function SignupPage() {
     onClick={() => setRole("volunteer")}
     className={`rounded-lg p-4 text-center border
       ${role === "volunteer"
-        ? " bg-green-700"
+        ? " bg-green-700 text-amber-50"
         : "border-gray-200"
       }`}
   >
@@ -105,7 +105,7 @@ export default function SignupPage() {
           <input className="border p-3 rounded-md w-full" placeholder="Email" />
 
           <div className="flex">
-            <span className="bg-green-700 px-3 py-3 rounded-l-md text-sm">
+            <span className="bg-green-700 px-3 py-3 rounded-l-md text-sm text-amber-50">
               +91
             </span>
             <input
@@ -146,7 +146,7 @@ export default function SignupPage() {
             </button>
           </div>
 
-          <button className="w-full bg-green-700 py-3 rounded-md">
+          <button className="w-full bg-green-700 text-amber-50 py-3 rounded-md">
             Create Account
           </button>
         </form>
