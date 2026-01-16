@@ -27,7 +27,7 @@ export default function Schemes() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12">
           <div>
-            <p className="text-sm font-semibold tracking-widest text-gray-500">
+            <p className="text-sm font-semibold tracking-widest text-green-700">
               OUR SERVICES
             </p>
 

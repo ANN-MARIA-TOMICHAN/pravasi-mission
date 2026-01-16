@@ -60,7 +60,7 @@ export default function Header({
         {/* RIGHT ACTIONS */}
         <div className="flex items-center gap-2 md:gap-4">
           {/* MOBILE SEARCH ICON */}
-          <ThemeToggle/> 
+          {/* <ThemeToggle/>  */}
           <button
             onClick={() => setMobileSearchOpen(true)}
             className="md:hidden p-2 rounded-md hover:bg-green-200 transition"

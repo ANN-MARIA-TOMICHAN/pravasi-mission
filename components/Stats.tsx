@@ -17,7 +17,7 @@ export default function Stats() {
               <h3 className="text-3xl md:text-4xl font-bold text-green-800">
                 {item.value}
               </h3>
-              <p className="mt-2 text-white text-sm">
+              <p className="mt-2 text-green-800 text-sm">
                 {item.label}
               </p>
             </div>

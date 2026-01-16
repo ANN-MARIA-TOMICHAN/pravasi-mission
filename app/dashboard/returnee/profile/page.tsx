@@ -1,12 +1,14 @@
 "use client";
 
+import { ThemeProvider } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function ViewProfilePage() {
   return (
     <div className="max-w-5xl mx-auto p-6">
-      <div className="bg-white  rounded-xl shadow-sm p-6 space-y-8">
+      <div className="bg-white dark:bg-[#111827] rounded-xl shadow">
+        <ThemeProvider/>
         <div className="flex items-center gap-4">
           <Image
             src="/avatar.png"

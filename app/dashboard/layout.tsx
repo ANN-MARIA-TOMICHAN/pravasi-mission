@@ -22,9 +22,20 @@ export default function DashboardLayout({
         <Header onMenuClick={() => setSidebarOpen(true)} />
 
         
-        <main className="flex-1 overflow-y-auto p-4">
-          {children}
-        </main>
+        <main
+  className="
+    flex-1 
+    p-6 
+    bg-white 
+    dark:bg-[#0b1220]
+    text-gray-900 
+    dark:text-gray-100
+    transition-colors duration-300
+  "
+>
+  {children}
+</main>
+
       </div>
     </div>
   );
